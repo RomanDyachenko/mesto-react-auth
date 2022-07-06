@@ -14,7 +14,7 @@ function App() {
     const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-    const [selectedCard, setSelectedCard] = React.useState(false);
+    const [selectedCard, setSelectedCard] = React.useState(null);
 
     function handleEditProfileClick (){
         setEditProfilePopupOpen(true);
@@ -38,11 +38,11 @@ function App() {
         setEditProfilePopupOpen(false);
         setEditAvatarPopupOpen(false);
         setAddPlacePopupOpen(false);
-        setSelectedCard(false);
+        setSelectedCard(null);
     }
 
   return (
-<body className="root">
+    <>
     <Header />
     <div className="page">
         <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
@@ -50,16 +50,16 @@ function App() {
     </div>
     <PopupWithForm isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} name="edit" title="Редактировать профиль" btn_txt="Сохранить" children={
             <>
-                <input className="popup__input popup__input_type_name" placeholder="Имя" id="name" type="text" minlength="2" maxlength="40" required/>
+                <input className="popup__input popup__input_type_name" placeholder="Имя" id="name" type="text" minLength="2" maxLength="40" required/>
                 <span className="popup__span-error" id="error-name"></span>
-                <input className="popup__input popup__input_type_employment" placeholder="Профессия" id="employment" type="text" minlength="2" maxlength="200" required/>
+                <input className="popup__input popup__input_type_employment" placeholder="Профессия" id="employment" type="text" minLength="2" maxLength="200" required/>
                 <span className="popup__span-error" id="error-employment"></span>
             </>
         }
     />
     <PopupWithForm isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} name="add" title="Новое место" btn_txt="Сохранить" children={
             <>
-                <input className="popup__input popup__input_type_name" id="place" type="text" placeholder="Название" minlength="2" maxlength="30" required/>
+                <input className="popup__input popup__input_type_name" id="place" type="text" placeholder="Название" minLength="2" maxLength="30" required/>
                 <span className="popup__span-error" id="error-place"></span>
                 <input className="popup__input popup__input_type_employment" id="url" type="url" placeholder="Ссылка на картинку" required/>
                 <span className="popup__span-error" id="error-url"></span>
@@ -75,8 +75,7 @@ function App() {
         }
     />
     <ImagePopup card={selectedCard} onClose={closeAllPopups} />    
-    
-</body>
+    </>
   );
 }
 
