@@ -77,7 +77,19 @@ deleteCard = (url) => {
      })
 }
 
-putCardLike = (url) => {
+changeLikeCardStatus = (url, isLiked) => {
+
+    if (isLiked) {
+        return this._deleteCardLike(url);
+    }
+
+    else {
+        return this._putCardLike(url);
+    }
+
+}
+
+_putCardLike = (url) => {
     return fetch(`${this._baseUrl}${url}`, {
         method: 'PUT',
         headers: {
@@ -89,7 +101,8 @@ putCardLike = (url) => {
      })
 }
 
-deleteCardLike = (url) => {
+
+_deleteCardLike = (url) => {
     return fetch(`${this._baseUrl}${url}`, {
         method: 'DELETE',
         headers: {
