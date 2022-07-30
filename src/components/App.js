@@ -30,6 +30,9 @@ function App() {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
+      })
+      .catch(() => {
+        console.log("Произошла ошибка");
       });
   }
 
@@ -51,6 +54,9 @@ function App() {
   React.useEffect(() => {
     newApi.getCardsInfo("cards").then((res) => {
       setCards(res);
+    })
+    .catch(() => {
+      console.log("Произошла ошибка");
     });
   }, []);
 
