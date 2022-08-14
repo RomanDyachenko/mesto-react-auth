@@ -46,7 +46,7 @@ const objectValidation = {
     addButtonSelector : '.profile__add-button',
   }*/
 
-const initialCards = [
+/*const initialCards = [
   {
     name: "Архыз",
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
@@ -71,7 +71,7 @@ const initialCards = [
     name: "Байкал",
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
-];
+];*/
 
 const BaseUrl = "https://nomoreparties.co/v1/cohort-41/";
 
@@ -80,7 +80,11 @@ const Headers = {
   "Content-Type": "application/json",
 };
 
+const authBaseUrl = "https://auth.nomoreparties.co";
+
+const authHeaders = {"Content-Type": "application/json"} ;
+
 export {
   BaseUrl,
-  Headers /* profileAvatar, profileAvatarButton, popupAvatarId, popupAvatar, popupSubmitId, cardLikesNumberSelector, templateContainer, cardsSelector, objectValidation, initialCards, profileEditButton, popupEdit, popupEditCloseButton, profileName, popupEditName, profileEmployment, popupEditEmployment, popupEditForm, popupAdd, popupAddName, popupAddLink, profileAddButton, popupAddCloseButton, popupAddForm, popupFullSize, popupFullSizeImg, popupFullSizePlaceName, popupFullSizeCloseButton, popupAddId, popupEditId, objectUserInfo, popupFullSizeId*/,
+  Headers, authBaseUrl, authHeaders /* profileAvatar, profileAvatarButton, popupAvatarId, popupAvatar, popupSubmitId, cardLikesNumberSelector, templateContainer, cardsSelector, objectValidation, initialCards, profileEditButton, popupEdit, popupEditCloseButton, profileName, popupEditName, profileEmployment, popupEditEmployment, popupEditForm, popupAdd, popupAddName, popupAddLink, profileAddButton, popupAddCloseButton, popupAddForm, popupFullSize, popupFullSizeImg, popupFullSizePlaceName, popupFullSizeCloseButton, popupAddId, popupEditId, objectUserInfo, popupFullSizeId*/,
 };
