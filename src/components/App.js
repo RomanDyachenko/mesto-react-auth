@@ -10,7 +10,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import { EditProfilePopup } from "./EditProfilePopup";
 import { EditAvatarPopup } from "./EditAvatarPopup";
 import { AddPlacePopup } from "./AddPlacePopup";
-import { BrowserRouter as Router, Route, Switch, Link, withRouter} from "react-router-dom";
+import { Route, Switch, withRouter} from "react-router-dom";
 import  Login  from "./Login.js";
 import Register from "./Register.js";
 import { InfoTooltip } from "./InfoTooltip.js";
@@ -31,29 +31,70 @@ function App(props) {
   const [email, setEmail] = React.useState("");
   
   React.useEffect(() => {
-    tokenCheck()
+    const checkToken = () => {
+      if (localStorage.getItem("token")){
+        const token = localStorage.getItem("token")
+        newAuth
+        .getUserInfo(token)
+        .then((res) => {
+            if(res){
+              console.log(res)
+              setEmail(res.data.email)
+              setLoggedIn(true)
+              props.history.push("/");
+            }     
+        }
+        )
+        .catch(() => {
+          console.log("Ошибка!")
+        })
+          
+      }
+    }
+    checkToken();
   }, [])
 
-  function tokenCheck(){
-    if (localStorage.getItem("token")){
-      const token = localStorage.getItem("token")
-      newAuth
-      .getUserInfo(token)
-      .then((res) => {
-          if(res){
-            console.log(res)
-            setEmail(res.data.email)
-            setLoggedIn(true)
-            props.history.push("/");
-          }
-          
-        
-      }
-        
+  
 
-      )
-    }
+  function handleRegisterSubmit(password, email){
+    newAuth
+      .postNewUser(password, email)
+      .then((res) => {
+        setStatus(true);
+        setInfoTooltipOpen(true);
+        props.history.push("/sign-in")
+        
+      })
+      .catch(() => {
+        console.log("Ошибка!");
+        setStatus(false);
+        setInfoTooltipOpen(true);
+      })
+
   }
+
+  function handleLoginSubmit(password, email){
+  
+    newAuth
+    .avtorizationUser(password, email)
+    .then((res) => {
+      setStatus(true);
+      setInfoTooltipOpen(true);
+      console.log(res)
+      localStorage.setItem("token", res.token);
+      handleLogin(true);
+      props.history.push("/")
+      
+    })
+    .catch(() => {
+      console.log("Ошибка!")
+      setStatus(false);
+      setInfoTooltipOpen(true);
+    })
+
+  }
+
+
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -236,8 +277,7 @@ function App(props) {
       />
       <Route path="/sign-up">
         <Register
-          setStatus={setStatus}
-          setInfoTooltipOpen={setInfoTooltipOpen}
+          handleRegisterSubmit={handleRegisterSubmit}
         />
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
@@ -248,8 +288,7 @@ function App(props) {
       <Route path="/sign-in">
         <Login 
         handleLogin={handleLogin}
-        setStatus={setStatus}
-        setInfoTooltipOpen={setInfoTooltipOpen}
+        handleLoginSubmit={handleLoginSubmit}
         />
         <InfoTooltip
           isOpen={isInfoTooltipOpen}

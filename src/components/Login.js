@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import { Link, withRouter } from "react-router-dom";
-import newAuth from "../utils/Auth";
+
 
 
 
@@ -20,24 +20,12 @@ function Login(props) {
 
   function handleSubmit(e){
     e.preventDefault();
-    newAuth
-    .avtorizationUser(password, email)
-    .then((res) => {
-      props.setStatus(true);
-      props.setInfoTooltipOpen(true);
-      console.log(res)
-      localStorage.setItem("token", res.token);
-      setEmail("");
-      setPassword("");
-      props.handleLogin(true);
-      props.history.push("/")
-      
-    })
-    .catch(() => {
-      console.log("Ошибка!")
-      props.setStatus(false);
-      props.setInfoTooltipOpen(true);
-    })
+    
+    props.handleLoginSubmit(password, email);
+
+    setEmail("");
+    setPassword("");
+
   }
 
 

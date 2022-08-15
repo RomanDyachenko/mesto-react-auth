@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import { Link, Route, withRouter } from "react-router-dom";
-import newAuth from "../utils/Auth.js";
+
 
 function Register(props) {
   const [email, setEmail] = React.useState("");
@@ -20,23 +20,10 @@ function Register(props) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    newAuth
-      .postNewUser(password, email)
-      .then((res) => {
-        props.setStatus(true);
-        props.setInfoTooltipOpen(true);
-        setEmail("");
-        setPassword("");
-        props.history.push("/sign-in")
-        
-      })
-      .catch(() => {
-        console.log("Ошибка!");
-        props.setStatus(false);
-        props.setInfoTooltipOpen(true);
-      })
+    props.handleRegisterSubmit(password, email);
 
-
+    setPassword("");
+    setEmail("");
 
   }
   
